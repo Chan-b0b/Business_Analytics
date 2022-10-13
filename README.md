@@ -2,7 +2,7 @@
 
 ![test](https://user-images.githubusercontent.com/93261025/195637533-eeb4ad43-feb1-483e-b8ad-f64129fa3f5a.gif)
 
-Tenenbaum, J. B., Silva, V. D., & Langford, J. C. (2000). A global geometric framework for nonlinear dimensionality reduction. Science, 290 (5500), 2319-2323. 논문에서 제안된 "Swiss Roll" 데이터를 가지고 LLE, Isomap 그리고 MDS로 dimensionality reduction을 진행했을 때 양상을 살펴보겠습니다.
+"A global geometric framework for nonlinear dimensionality reduction" 논문에서 제안된 "Swiss Roll" 데이터를 가지고 LLE, Isomap 그리고 MDS로 dimensionality reduction을 진행했을 때 양상을 살펴보겠습니다.
 
 ### Dataset
 Dataset은 sklearn에서 제공하는 swiss_roll을 사용합니다.
@@ -111,3 +111,6 @@ def compare_components(method):
 논문에서 제시되었던 것처럼 ISOMAP 뿐 아니라 다른 lle 기법 또한 dimension 2부터 충분히 data의 속성을 충분히 표현할 수 있음을 알 수 있습니다. 
 다만 lle 기법 중 standard가 dimension이 1일 때부터 error가 거의 0으로 나타나는 양상을 보이는데, 실제로 dimension = 1로도 swiss roll 데이터가 충분히 표현될 수 있는 것인지 추가적인 확인이 필요해보입니다.
 
+참고:
+https://scikit-learn.org/stable/auto_examples/manifold/plot_compare_methods.html#sphx-glr-auto-examples-manifold-plot-compare-methods-py
+Tenenbaum, J. B., Silva, V. D., & Langford, J. C. (2000). A global geometric framework for nonlinear dimensionality reduction. Science, 290 (5500), 2319-2323.
