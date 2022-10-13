@@ -1,4 +1,4 @@
-# Business_Analytics
+# Dimensionality Reduction
 
 ![test](https://user-images.githubusercontent.com/93261025/195637533-eeb4ad43-feb1-483e-b8ad-f64129fa3f5a.gif)
 
