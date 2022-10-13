@@ -108,6 +108,6 @@ def compare_components(method):
 ```
 ![error_n_components](https://user-images.githubusercontent.com/93261025/195656387-f4826fcf-69e7-4092-b95c-8ccdd49b0d07.png)
 
-논문에서 제시되었던 것처럼 ISOMAP 뿐 아니라 다른 lle 기법 또한 dimension 2부터 충분히 data의 속성을 충분히 표현할 수 있음을 알 수 있다. 
-다만 lle 기법 중 standard는 dimension이 1일 때부터 error가 거의 0으로 나타나는 유일한 경우였는데, 실제로 충분히 표현될 수 있는 것인지 추가적인 확인이 필요해보입니다.
+논문에서 제시되었던 것처럼 ISOMAP 뿐 아니라 다른 lle 기법 또한 dimension 2부터 충분히 data의 속성을 충분히 표현할 수 있음을 알 수 있습니다. 
+다만 lle 기법 중 standard가 dimension이 1일 때부터 error가 거의 0으로 나타나는 양상을 보이는데, 실제로 dimension = 1로도 swiss roll 데이터가 충분히 표현될 수 있는 것인지 추가적인 확인이 필요해보입니다.
 
