@@ -29,6 +29,34 @@ def draw_plot(dataset):
     methods = ['standard', 'ltsa', 'hessian', 'modified','isomap','MDS']
     for method in methods:
         plot_diagram(dataset[0], dataset[1], method)
+        
+def plot_diagram(points, color, method, n_neighbors = 10, n_components = 2, title = '_Embedding'):
+    
+    if method == 'isomap':
+        isomap = manifold.Isomap(n_neighbors=n_neighbors, n_components=n_components, p=1)
+        transformed = isomap.fit_transform(points)
+        
+    elif method == 'MDS':
+        md_scaling = manifold.MDS(n_components=n_components, max_iter=50, n_init=4)
+        transformed = md_scaling.fit_transform(points)  
+    else:
+        #method : standard, ltsa, hessian, modified
+        lle = manifold.LocallyLinearEmbedding(n_neighbors=n_neighbors,n_components=n_components, method=method, eigen_solver='dense')
+        transformed = lle.fit_transform(points)
+    plot_2d(transformed, color, f"{method}"+title)
+    
+def plot_2d(points, points_color, title):
+    fig, ax = plt.subplots(figsize=(3, 3), facecolor="white", constrained_layout=True)
+    fig.suptitle(title, size=16)
+    add_2d_scatter(ax, points, points_color)
+    plt.savefig('img/'+ title + '.png')
+
+def add_2d_scatter(ax, points, points_color, title=None):
+    x, y = points.T
+    ax.scatter(x, y, c=points_color, s=5, alpha=0.8)
+    ax.set_title(title)
+    ax.xaxis.set_major_formatter(ticker.NullFormatter())
+    ax.yaxis.set_major_formatter(ticker.NullFormatter())
 ``` 
 기본 설정 (n_neighbors = 10, n_components = 2)로 dimensionality reduction 진행했을 때 plot을 확인할 수 있습니다.
 
@@ -38,6 +66,34 @@ def draw_plot(dataset):
 def compare_neighbors(method):
     for i in range(1,10):
         plot_diagram(dataset[0], dataset[1], method, n_neighbors = i, title=f'n_neighbors_{i}')
+        
+def plot_graph(points, methods, n_neighbors = 10):
+    num_col = 1
+    num_row = 5
+    fig, axs = plt.subplots(
+    nrows=num_row, ncols=num_col, figsize=(7, 14), facecolor="white", constrained_layout=True
+)
+    fig.suptitle("Error per n_components", size=15)
+
+    for ax, method in zip(axs.flat, methods):
+        error = []
+        if method == 'isomap':
+            for i in range(1,4):
+                isomap = manifold.Isomap(n_neighbors=n_neighbors, n_components=i, p=1)
+                transformed = isomap.fit_transform(points)
+                error.append(isomap.reconstruction_error())
+                ax.set_ylim(0, 160)
+        else:
+            for i in range(1,4):
+                #method : standard, ltsa, hessian, modified
+                lle = manifold.LocallyLinearEmbedding(n_neighbors=n_neighbors,n_components=i, method=method, eigen_solver='dense')
+                transformed = lle.fit_transform(points)
+                error.append(lle.reconstruction_error_)
+                ax.set_ylim(0, 0.0025)
+                
+        ax.plot(error)
+        ax.set_title(f'{method}'.upper())
+        ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
 ```
 ![standard_neighbors](https://user-images.githubusercontent.com/93261025/195644353-25a26058-8e81-448d-bfe3-1af4c7fcca7d.gif)
 ![neighbors](https://user-images.githubusercontent.com/93261025/195642274-63a72f00-3c89-476b-a7a9-b96e6dd2ef6a.gif)
@@ -50,3 +106,8 @@ def compare_components(method):
     for i in range(1,4):
         plot_graph(dataset[0], method, n_components = i, title=f'n_dimension_{i}')
 ```
+![error_n_components](https://user-images.githubusercontent.com/93261025/195656387-f4826fcf-69e7-4092-b95c-8ccdd49b0d07.png)
+
+논문에서 제시되었던 것처럼 ISOMAP 뿐 아니라 다른 lle 기법 또한 dimension 2부터 충분히 data의 속성을 충분히 표현할 수 있음을 알 수 있다. 
+다만 lle 기법 중 standard는 dimension이 1일 때부터 error가 거의 0으로 나타나는 유일한 경우였는데, 실제로 충분히 표현될 수 있는 것인지 추가적인 확인이 필요해보입니다.
+
