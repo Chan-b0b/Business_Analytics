@@ -2,7 +2,7 @@
 > “When faced with two equally good hypotheses, always choose the simpler”
 
 <p align="center">
-    <img src="images/Intro.png" width="700"/>
+    <img src="images/Intro.png" width="300"/>
 </p>
 
 머신러닝을 처음 배우기 시작했을 때부터 항상 강조되던 말, **"모델을 너무 복잡하게 만들면 일반화에 어렵다"** \
@@ -13,3 +13,26 @@
 <p align="center">
     <img src="images/complexity.png" width="700"/>
 </p>
+
+
+### Table of contents
+
+- [Overview](##Overview)
+- [SVC](#SVC)
+- [Decision Tree](#Decision-Tree)
+- [A](#Decision-Tree)
+
+## Overview
+
+### 1) Data
+이번에는 가장 대표적인 데이터 중 하나인 Iris 데이터를 가지고 테스트를 진행해보도록 하겠다.
+```Python
+irisdata = pd.read_csv('iris.csv')
+sns.pairplot(irisdata,hue='class',palette='Dark2')
+```
+<p align="center">
+    <img src="images/iris.png" width="500"/>
+</p>
+
+데이터 분포를 간략하게 살펴보면 Iris-setosa가 다른 두 개체에 비해 
+
