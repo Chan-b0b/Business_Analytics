@@ -17,7 +17,7 @@
 
 ## Table of contents
 
-- [1_Data](#1_Data)
+- [Data](#1_Data)
 - [SVC](#2_SVM)
 - [Decision Tree](#3_Decision-Tree)
 
@@ -107,7 +107,7 @@ for _ in range(100):
 ```
 
 <p align="center">
-    <img src="images/svm_test3.png" width="700"/>
+    <img src="images/svm_test3.png" width="400"/>
 </p>
 ```
 
@@ -119,6 +119,52 @@ Label이 3개인 경우이므로 score는 Weighted f1_score를 적용했으며, 
 
 
 # 3_Decision-Tree
+```
+X = irisdata.drop('class', axis=1)  
+y = irisdata['class']  
+result = dict()
+for _ in range(100):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, shuffle=True)
+    
+    for i in range(1,20):
+        if i not in result:
+            result[i] = {'train':[], 'test':[]}
+            
+        classifier = DecisionTreeClassifier(max_depth=i)
+        classifier.fit(X_train, y_train)
+
+        y_train_pred = classifier.predict(X_train)
+        y_pred = classifier.predict(X_test) 
+        
+        result[i]['train'].append(f1_score(y_train, y_train_pred, average="weighted"))
+        result[i]['test'].append(f1_score(y_test, y_pred, average="weighted"))
+```
+Decision Tree도 SVM과 마찬가지로 조작이 가능한 변수 중 max_depth를 변경하면서 모델의 성능을 관찰하고자 한다. Max_depth는 boundary 개수에 상한선을 부여하기 때문에 모델 복잡도에 영향을 끼치는 변수라고 생각했다. 그래도 Max_depth와 모델 복잡도의 연관성을 살펴보기 위해 SVM과 마찬가지로 sepal_length와 sepal_width만 추출하여 2D로 Decision Boundary를 나타내보았다.
+<p align="center">
+    <img src="images/output_decision.png" width="700"/>
+</p>
+당연하게도 max_depth가 증가함에 따라 training set 데이터들을 더 세세하게 나누면서 모델의 복잡도가 증가하는 것을 확인할 수 있었다.
+
+
+**Max_Depth 변화에 따른 Train/Test Score 변화**
+
+위 Max_depth 변화에 따른 Decision Boundary를 살펴보았을 때 max_depth를 증가시키면 증가시킬수록 더 촘촘하게 boundary를 생성하다보니 test_score는 당연히 내려갈 것이라고 생각했다.
+
+<p align="center">
+    <img src="images/decision_tree_20.png" width="400"/>
+</p>
+<p align="center">
+    <img src="images/decision_tree_200.png" width="400"/>
+</p>
+
+하지만 결과는 예상과 달랐는데, 물론 max_depth=7부터 score가 1로 수렴하는 training set보다 score는 낮지만, max_depth를 계속 증가시켜도 0.95 정도의 test score를 유지하는 모습을 보였다. 심지어 data 개수보다 많도록 max_depth를 200까지 증가시켜봐도 test score는 떨어지지 않았다.
+
+당연히 test score가 떨어질 것으로 생각했었으나 결과를 확인한 후 생각해보니, 다음과 같은 이유로 이런 결과가 나올 수 있겠다는 생각이 들었다.
+
+1. max_depth는 depth의 최대값을 설정할 뿐, 실제 depth가 해당 값이 될 필요는 없다
+2. Iris data의 분포가 비교적 간단하여, 낮은 값의 depth로도 충분히 분류가 가능하다
+
+하지만 설령 상기 이유 때문에 test score가 떨어지지 않았다고 해도, train score가 상승하는 max_depth : 1~7 구간에서 test score가 감소하는 구간이 나와야 할 것으로 생각하는데, 추가적인 고찰이 필요해보인다.
 
 
 ---
