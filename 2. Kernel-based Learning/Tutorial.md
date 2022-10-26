@@ -17,7 +17,7 @@
 
 ### Table of contents
 
-- [Overview](###1_Data)
+- [1_Data](###1_Data)
 - [SVC](#SVC)
 - [Decision Tree](#Decision-Tree)
 - [A](#Decision-Tree)
