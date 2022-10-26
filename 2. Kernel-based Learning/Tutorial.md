@@ -17,12 +17,12 @@
 
 ### Table of contents
 
-- [1_Data](###1_Data)
+- [1_Data](#1_Data)
 - [SVC](#SVC)
 - [Decision Tree](#Decision-Tree)
 - [A](#Decision-Tree)
 
-### 1_Data
+# 1_Data
 이번에는 sklearn data에서 가장 대표적인 데이터 중 하나인 Iris 데이터를 가지고 테스트를 진행해보고자 한다.
 ```Python
 irisdata = pd.read_csv('iris.csv')
