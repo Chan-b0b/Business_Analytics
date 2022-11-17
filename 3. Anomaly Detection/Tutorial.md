@@ -1,7 +1,7 @@
 # Autoencoder
 
 <p align="center">
-    <img src="images/autoencoder_architecture.png" width="300"/>
+    <img src="images/autoencoder_architecture.png" width="600"/>
 </p>
 
 그동안 이미지 관련 문제에서 Anomaly Detection이 필요할 때마다 많이 써왔던 Autoencoder인데,\
