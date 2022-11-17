@@ -66,18 +66,22 @@ for dim in range(1,11):
 <p align="center">
     <img src="images/latent.png" width="600"/>
 </p>
+latent_dim : 1
 <hr/>
 <p align="center">
     <img src="images/latent2.png" width="600"/>
 </p>
+latent_dim : 2
 <hr/>
 <p align="center">
     <img src="images/latent5.png" width="600"/>
 </p>
+latent_dim : 5
 <hr/>
 <p align="center">
     <img src="images/latent10.png" width="600"/>
 </p>
+latent_dim : 10
 <hr/>
 
 예상했던 것과 같이 dimension이 증가함에 따라 결과가 나아짐을 정성적으로 파악할 수 있었는데,
@@ -107,7 +111,7 @@ len(9) : 5949
 ```
 숫자 0의 개수는 오히려 적은 편에 속하여, 그런 이유는 아닌 것으로 보인다. 
 
-**그렇다면 0과 1은 왜 극도로 작은 dimension으로도 잘 구분이 되었던 것일까?** \
+**그렇다면 0과 1은 왜 극도로 작은 dimension으로도 잘 구분이 되었던 것일까?** 
 
 다음으로 드는 생각은 0과 1의 특성이 매우 달라서 작은 dimension의 latent space로도 충분히 구별이 가능하다는 생각이었다.
 이를 확인하기 위해 latent_dim을 2로 설정한 후 해당 latent space를 2차원 상에 나타내보았다. 
