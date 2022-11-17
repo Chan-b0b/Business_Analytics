@@ -62,12 +62,11 @@ for dim in range(1,11):
    torch.save(save_dict, f'model/number_{number}')
    plot_ae_outputs(opt_model,test_dataset,n=10,name='unpooling', num=dim)
 ```
----------------------------------------
-
+<hr/>
 <p align="center">
     <img src="images/latent.png" width="600"/>
 </p>
----------------------------------------
+<hr/>
 <p align="center">
     <img src="images/latent2.png" width="600"/>
 </p>
