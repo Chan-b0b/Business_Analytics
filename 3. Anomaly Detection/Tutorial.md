@@ -189,20 +189,20 @@ Autoencoder는 당연하지만 차원을 축소하는 Encoder 부분과 차원�
 
 
 <p align="center">
-    <img src="images/test_2.png" width="600"/>
+    <img src="images/test_2.png" width="800"/>
 </p>
 
 ConvTranspose Layer를 사용하여 학습을 진행할 경우, 앞서 언급된 것처럼 checkerboard와 비슷한 패턴이 나타났음을 확인할 수 있었다.
 하지만 이와 같은 패턴은 학습이 진행됨에 따라 사라졌고, latent_dim:16일 경우 최종 결과는 아래와 같았다.
 
 <p align="center">
-    <img src="images/transpose_16.png" width="600"/>
+    <img src="images/transpose_16.png" width="800"/>
 </p>
 
 이를 아래 resize + convolution 결과와 비교해봤을 때,
 
 <p align="center">
-    <img src="images/unpooling_16.png" width="600"/>
+    <img src="images/unpooling_16.png" width="800"/>
 </p>
 
 오히려 ConvTranspose를 사용했을 때 정성적으로 더 좋은 결과를 보이는 것으로 보인다. 
@@ -216,10 +216,10 @@ print(np.min(torch.load(f'model/Upsample_0')['loss']['val_loss']))
 
 극단적인 차이는 latent_dim:2로 설정했을 때 나타났는데, 
 <p align="center">
-    <img src="images/transpose_2.png" width="600"/>
+    <img src="images/transpose_2.png" width="800"/>
 </p>
 <p align="center">
-    <img src="images/unpooling_2.png" width="600"/>
+    <img src="images/unpooling_2.png" width="800"/>
 </p>
 숫자 3과 6에서 transpose_2가 관련 특징을 더 잘 추출해낸 것을 알 수 있었다. 비록 이미지 처리 방식에서 checkerboard와 같은 문제가 발생할 수 있다고 하나, feature를 추출하는 데에 있어서는 ConvTranspose layer를 사용하는 것이 더 적절하지 않나 생각한다. 
 
