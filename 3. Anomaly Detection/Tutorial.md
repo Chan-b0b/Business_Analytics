@@ -62,22 +62,31 @@ for dim in range(1,11):
    torch.save(save_dict, f'model/number_{number}')
    plot_ae_outputs(opt_model,test_dataset,n=10,name='unpooling', num=dim)
 ```
+---------------------------------------
 
 <p align="center">
     <img src="images/latent.png" width="600"/>
 </p>
+---------------------------------------
+
 <p align="center">
     <img src="images/latent2.png" width="600"/>
 </p>
+---------------------------------------
+
 <p align="center">
     <img src="images/latent5.png" width="600"/>
 </p>
+---------------------------------------
+
 <p align="center">
     <img src="images/latent10.png" width="600"/>
 </p>
+---------------------------------------
+
 
 예상했던 것과 같이 dimension이 증가함에 따라 결과가 나아짐을 정성적으로 파악할 수 있었는데,
-흥미로운 점은 dimension이 극도로 작을 때(0,1) 나타난다.
+흥미로운 점은 dimension이 극도로 작을 때(dim : 0 or 1) 나타난다.
 다른 숫자의 경우 어떤 숫자인지 구별이 어려울 정도의 결과를 보이는 반면, 숫자 0과 1은 비교적 또렷하게 숫자를 구분할 수 있었다.
 숫자 1의 경우 간단하면서 다른 숫자들도 갖고 있는 형태를 띄기 때문에 그런 것으로 설명이 가능하나, 숫자 0 또한 결과가 잘 나오는 것은 이해하기 어려웠다. 혹시 데이터셋에서 0과 1의 비중이 높아서 발생하는 현상인지 확인하기 위해
 
