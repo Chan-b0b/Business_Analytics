@@ -223,4 +223,6 @@ print(np.min(torch.load(f'model/Upsample_0')['loss']['val_loss']))
 </p>
 숫자 3과 6에서 transpose_2가 관련 특징을 더 잘 추출해낸 것을 알 수 있었다. 비록 이미지 처리 방식에서 checkerboard와 같은 문제가 발생할 수 있다고 하나, feature를 추출하는 데에 있어서는 ConvTranspose layer를 사용하는 것이 더 적절하지 않나 생각한다. 
 
+# 4_결론
+최근들어 모델의 **Inductive Bias** 라는 표현을 많이 듣게 되면서 모델 구조마다 갖고 있을 bias가 무엇일지 고민하게 된 것 같다. 그동안 수없이 Autoencoder를 사용해 왔지만, 애초에 정말 유의미한 feature가 latent feature로 추출되는 것이 맞는지에 대한 고민이 우선 있었고, 뽑힌 feature를 우리가 정성적으로 확인할 수 있을지가 다음 의문이었다. 다행히 그동안 알고 왔던 내용과 크게 다르지 않은 실험 결과였다는 생각이 들며, 이번 경우 Autoencoder라는 구조 이전에 CNN 구조를 사용했기 때문에 translation에 대한 invariance가 존재하면서, 우리가 정성적인 결과를 더 잘 확인할 수 있지 않았나 하는 생각이 든다. 
 
