@@ -68,7 +68,6 @@ for dim in range(1,11):
     <img src="images/latent.png" width="600"/>
 </p>
 ---------------------------------------
-
 <p align="center">
     <img src="images/latent2.png" width="600"/>
 </p>
