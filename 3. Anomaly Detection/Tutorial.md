@@ -172,4 +172,6 @@ print(np.min(torch.load(f'model/Upsample_0')['loss']['val_loss']))
 <p align="center">
     <img src="images/unpooling_2.png" width="600"/>
 </p>
-숫자 3과 6에서 transpose_2가 관련 특징을 더 잘 추출해낸 것을 알 수 있었다. 비록 이미지 처리 방식에서 checkerboard와 같은 문제가 발생할 수 있다고 하나, feature를 추출하는 데에 있어서는 ConvTranspose layer
+숫자 3과 6에서 transpose_2가 관련 특징을 더 잘 추출해낸 것을 알 수 있었다. 비록 이미지 처리 방식에서 checkerboard와 같은 문제가 발생할 수 있다고 하나, feature를 추출하는 데에 있어서는 ConvTranspose layer를 사용하는 것이 더 적절하지 않나 생각한다. 
+
+
