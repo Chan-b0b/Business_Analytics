@@ -138,9 +138,75 @@ len(9) : 5949
 추가적으로, 전체 숫자로 학습을 시켰을 경우 직선과 원 모양의 feature를 먼저 찾아낸다는 것을 확인하였으니, 
 한 가지의 숫자로 학습을 진행한 경우에는 어떤 feature들이 뽑아내지며, 이는 다른 숫자를 reconstruct 할 때 어떻게 발현되는지 확인해보고자 한다. 
 
+<hr/>
 <p align="center">
     <img src="images/number0.png" width="600"/>
 </p>
+Model trained with '0'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number1.png" width="600"/>
+</p>
+Model trained with '1'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number2.png" width="600"/>
+</p>
+Model trained with '2'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number3.png" width="600"/>
+</p>
+Model trained with '3'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number4.png" width="600"/>
+</p>
+Model trained with '4'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number5.png" width="600"/>
+</p>
+Model trained with '5'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number6.png" width="600"/>
+</p>
+Model trained with '6'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number7.png" width="600"/>
+</p>
+Model trained with '7'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number8.png" width="600"/>
+</p>
+Model trained with '8'
+
+
+<hr/>
+<p align="center">
+    <img src="images/number9.png" width="600"/>
+</p>
+Model trained with '9'
+
 
 # 3_Up_pooling 기법
 Autoencoder는 당연하지만 차원을 축소하는 Encoder 부분과 차원을 확장하는 Decoder 부분으로 나뉜다. Encoding 부분은 보통 CNN 레이어의 stride값이나, Pooling 레이어를 통해 차원을 축소하는 방법을 주로 사용한다. 그동안 Autoencoder를 사용하면 Decoder 부분에서 Upsampling + CNN 방식을 사용해왔는데, 이번 강의 시간에 ConvTranspose 기법에 대한 이야기가 나와서 관련 내용을 살펴보았다. 
