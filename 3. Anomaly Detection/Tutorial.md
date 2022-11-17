@@ -168,27 +168,6 @@ Model trained with '3'
 
 <hr/>
 <p align="center">
-    <img src="images/number4.png" width="600"/>
-</p>
-Model trained with '4'
-
-
-<hr/>
-<p align="center">
-    <img src="images/number5.png" width="600"/>
-</p>
-Model trained with '5'
-
-
-<hr/>
-<p align="center">
-    <img src="images/number6.png" width="600"/>
-</p>
-Model trained with '6'
-
-
-<hr/>
-<p align="center">
     <img src="images/number7.png" width="600"/>
 </p>
 Model trained with '7'
@@ -196,16 +175,11 @@ Model trained with '7'
 
 <hr/>
 <p align="center">
-    <img src="images/number8.png" width="600"/>
-</p>
-Model trained with '8'
-
-
-<hr/>
-<p align="center">
     <img src="images/number9.png" width="600"/>
 </p>
 Model trained with '9'
+
+위의 결과를 통해 확실히 Autoencoder가 특정 feature를 추출해내고 있다는 것을 확인할 수 있었다. 0만으로 학습시켰을 때는 원모양의 feature 중심으로 reconstruction을 진행하는 모습을 볼 수 있었으며, 반대로 1의 경우 직선 위주로 reconstruct 하는 것을 볼 수 있었다. 비슷한 예시로 3으로 학습한 경우 2의 둥근 부분, 7의 경우 꺾인 선의 형상, 9의 경우 0과 8에서 나타나는 원의 모습을 잘 복원하는 것을 볼 수 있었다. 
 
 
 # 3_Up_pooling 기법
