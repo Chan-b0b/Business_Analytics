@@ -192,7 +192,7 @@ Autoencoder는 당연하지만 차원을 축소하는 Encoder 부분과 차원�
     <img src="images/test_2.png" width="800"/>
 </p>
 
-ConvTranspose Layer를 사용하여 학습을 진행할 경우, 앞서 언급된 것처럼 checkerboard와 비슷한 패턴이 나타났음을 확인할 수 있었다.
+ConvTranspose Layer를 사용하여 학습을 진행할 경우, 앞서 언급된 것처럼 checkerboard와 비슷한 패턴이 실제로 나타을 확인할 수 있었다.
 하지만 이와 같은 패턴은 학습이 진행됨에 따라 사라졌고, latent_dim:16일 경우 최종 결과는 아래와 같았다.
 
 <p align="center">
