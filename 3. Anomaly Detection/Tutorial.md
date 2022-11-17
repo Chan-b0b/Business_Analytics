@@ -35,7 +35,7 @@ torch에서 제공하는 DataLoader를 사용하면 batch_size, transform, shuff
 많은 textbook이나 reference에서 상응하는 결과를 보여왔으므로
 naive한 생각으로 당연히 latent dimension이 증가할수록 output되는 결과가 더 좋아질 것으로 보인다.
 그런데 내가 궁금한 점은, 우리는 latent feature 안에 노이즈 및 불필요한 정보가 제외된, 중요한 정보만이 남겨있다는 기대(?)를 하고 있는데,
-과연 육안으로 우리가 그 것을 확인할 수 있을까 하는 것이다. \
+**과연 정성적으로 우리가 그 것을 확인할 수 있을까 하는 것이다.** \
 따라서 Latent Dimension을 중가시키면서 output 되는 이미지들을 확인해보고자 했다.
 
 ```Python
