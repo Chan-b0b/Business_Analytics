@@ -70,18 +70,15 @@ for dim in range(1,11):
 <p align="center">
     <img src="images/latent2.png" width="600"/>
 </p>
----------------------------------------
-
+<hr/>
 <p align="center">
     <img src="images/latent5.png" width="600"/>
 </p>
----------------------------------------
-
+<hr/>
 <p align="center">
     <img src="images/latent10.png" width="600"/>
 </p>
----------------------------------------
-
+<hr/>
 
 예상했던 것과 같이 dimension이 증가함에 따라 결과가 나아짐을 정성적으로 파악할 수 있었는데,
 흥미로운 점은 dimension이 극도로 작을 때(dim : 0 or 1) 나타난다.
