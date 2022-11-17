@@ -183,7 +183,7 @@ Model trained with '9'
 위의 결과를 통해 확실히 Autoencoder가 특정 feature를 추출해내고 있다는 것을 확인할 수 있었다. 0만으로 학습시켰을 때는 원모양의 feature 중심으로 reconstruction을 진행하는 모습을 볼 수 있었으며, 반대로 1의 경우 직선 위주로 reconstruct 하는 것을 볼 수 있었다. 비슷한 예시로 3으로 학습한 경우 2의 둥근 부분, 7의 경우 꺾인 선의 형상, 9의 경우 0과 8에서 나타나는 원의 모습을 잘 복원하는 것을 볼 수 있었다. 
 
 
-# 3_Up_pooling 기법
+# 3_UpSampling 기법
 Autoencoder는 당연하지만 차원을 축소하는 Encoder 부분과 차원을 확장하는 Decoder 부분으로 나뉜다. Encoding 부분은 보통 CNN 레이어의 stride값이나, Pooling 레이어를 통해 차원을 축소하는 방법을 주로 사용한다. 그동안 Autoencoder를 사용하면 Decoder 부분에서 Upsampling + CNN 방식을 사용해왔는데, 이번 강의 시간에 ConvTranspose 기법에 대한 이야기가 나와서 관련 내용을 살펴보았다. 
 *https://distill.pub/2016/deconv-checkerboard/* 에 따르면 ConvTranspose는 overlap 되는 부분에서 checkerboard와 같은 현상이 일어나며, 때문에 resize + convolution 기법을 사용하는 것을 장려한다고 명시되어 있다. 나 또한 resize + convolution 기법만을 사용해왔으나, 'ConvTranspose 기법보다 당연히 낫겠지'라고 생각하면서 계속 사용하는 것은 이번 강의 취지에 맞지 않다고 생각하여, 이 두 기법을 비교해보기로 했다. 
 
