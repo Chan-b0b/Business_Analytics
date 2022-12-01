@@ -186,7 +186,38 @@ We have checked that limiting the number of features to the square root of numbe
 
 ![titanic](https://user-images.githubusercontent.com/93261025/205084116-82b06169-8d1e-4b2d-b116-1f131010062f.png)
 
+ ```
+for datum in data:
+    output = []
+    for fraction in [0.1*x for x in range(1,10)]:
+        df = datum['data']
+        y_name = datum['y']
+        df = df.dropna(axis='index')
+        X = df.drop([y_name], axis = 1)
+        y = df[y_name]
 
+        features_to_encode = X.columns[X.dtypes==object].tolist() 
+
+        col_trans = make_column_transformer(
+                            (OneHotEncoder(),features_to_encode),
+                            remainder = "passthrough"
+                            )    
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.25, random_state=0)
+
+        model = RandomForestClassifier(random_state=1,max_features=fraction)
+        pipe = make_pipeline(col_trans, model)
+
+        pipe.fit(X_train, y_train)
+        y_pred = pipe.predict(X_test)
+        output.append(classification_report(y_test, y_pred,output_dict=True)['weighted avg']['f1-score'])
+
+    plt.plot(output)
+    plt.plot(output, color='#e35f62', marker='*', linewidth=2)
+    plt.xticks([x for x in range(9)], labels = [round(0.1*x,2) for x in range(1,10)])
+    plt.savefig(f'{datum["name"]}.png')
+    plt.clf()
+    ```
 
 ### Deciding criterion
 Random Forest may construct different decision tree depending on which criterion it uses. The default setting is gini impurity, and also entropy is also available.
