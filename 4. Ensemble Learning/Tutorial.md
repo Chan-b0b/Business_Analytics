@@ -88,11 +88,12 @@ data = [income, Bankruptcy, Wine, titanic]
 
 ## Experiment
 
-### Deciding number of features
+### Square root of total parameters
 It is known that the performance of random forests gets better if we choose only a portion of features from the dataset. Square root of the number of total parameters is usually used. Although professor Kang gave us an excellent example explaining why this could be possible, but I wanted to test by myself to see whether if it's true or not.
 
 **Result**
-The result of difference in number of features is as follows. We only showed the result of Income and Titanic datasets because the result for Bankrupcy and Wine datasets were not showing difference by such 
+
+The result of difference in number of features is as follows. We only showed the result of Income and Titanic datasets because the result for Bankrupcy and Wine datasets were not showing difference in this case. For the rest datasets, they were not showing huge difference gap neither, but in case of the Income dataset, the performace was slightly better if we used only the square root number of attributes. This complies with what we have learned in the class. However, in case of Titanic dataset, using all the parameters given was showing a slightly better performance. Even if we consider such difference as negligible, we were able to find that limiting the number of parameters does not incur hugh difference in performance. 
 
 - Income
 
@@ -129,3 +130,81 @@ The result of difference in number of features is as follows. We only showed the
   | Accuracy | --- | --- | 0.80 |
   | Macro Avg | 0.80 | 0.80 | 0.80 |
   | Weighted Avg | 0.80 | 0.80 | 0.80 |
+  
+  ```
+  for datum in data:
+    print(f'-------------{datum["name"]}---------------')
+    df = datum['data']
+    y_name = datum['y']
+    df = df.dropna(axis='index')
+    X = df.drop([y_name], axis = 1)
+    y = df[y_name]
+    
+    features_to_encode = X.columns[X.dtypes==object].tolist() 
+    
+    col_trans = make_column_transformer(
+                        (OneHotEncoder(),features_to_encode),
+                        remainder = "passthrough"
+                        )    
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.25, random_state=0)
+
+    model = RandomForestClassifier(random_state=1,max_features=None)
+    pipe = make_pipeline(col_trans, model)
+
+    pipe.fit(X_train, y_train)
+    y_pred = pipe.predict(X_test)
+    print(classification_report(y_test, y_pred))
+    
+        
+    model2 = RandomForestClassifier(random_state=1)
+    pipe = make_pipeline(col_trans, model2)
+
+    pipe.fit(X_train, y_train)
+    y_pred2 = pipe.predict(X_test)
+    print(classification_report(y_test, y_pred2))
+    ```
+
+### Deciding number of features
+We have checked that limiting the number of features to the square root of number of total parameters does not always lead to best result, so we are trying to check the performance gap while changing the fraction of parameters we select. 
+
+**Result**
+
+- Income
+
+![income](https://user-images.githubusercontent.com/93261025/205084016-0bc3d12e-0bdb-4a42-bf30-25afff3253ca.png)
+
+- Bankrupcy
+
+![Bankruptcy](https://user-images.githubusercontent.com/93261025/205084052-b9dec477-ce4d-45e8-9780-27939a63ee04.png)
+
+- Wine
+
+![Wine](https://user-images.githubusercontent.com/93261025/205084091-c23cdf92-3764-4a3b-b3f2-339af12f0e4d.png)
+
+- Titanic
+
+![titanic](https://user-images.githubusercontent.com/93261025/205084116-82b06169-8d1e-4b2d-b116-1f131010062f.png)
+
+
+
+### Deciding criterion
+Random Forest may construct different decision tree depending on which criterion it uses. The default setting is gini impurity, and also entropy is also available.
+
+**Result**
+The result has shown that there isn't any significant difference in performance occured by changing the criterion. In case of Income dataset, using the gini score shows higher performance, whereas entropy showed higher performance with Titanic dataset. 
+
+  | **Criterion** | Income | Bankruptcy | Wine | Titanic |
+  | --- | --- | --- | --- | --- |
+  | Gini | 0.848 | 1.0 | 0.978 | 0.803 |
+  | Entropy | 0.847 | 1.0 | 0.978 | 0.804 |
+
+### Result
+- Experiment 1 : **Square root of total parameters**
+   - Limiting to the square root of the number of total parameters did not always lead to higher performance, and even when it makes a difference, the performance gap was negligible.
+ 
+- Experiment 2 : **Deciding number of features**
+   - The optimal fraction of parameters was different depending on datasets. Also, we were able to observe that the performance does not change monotonically as the fraction increases
+ 
+- Experiment 3 : **Deciding criterion**
+   - Whether choosing the criterion as gini or entropy did not occur noticeable performance difference.
