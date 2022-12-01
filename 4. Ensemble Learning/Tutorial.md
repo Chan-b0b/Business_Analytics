@@ -186,7 +186,7 @@ We have checked that limiting the number of features to the square root of numbe
 
 ![titanic](https://user-images.githubusercontent.com/93261025/205084116-82b06169-8d1e-4b2d-b116-1f131010062f.png)
 
- ```
+```Python
 for datum in data:
     output = []
     for fraction in [0.1*x for x in range(1,10)]:
@@ -217,7 +217,7 @@ for datum in data:
     plt.xticks([x for x in range(9)], labels = [round(0.1*x,2) for x in range(1,10)])
     plt.savefig(f'{datum["name"]}.png')
     plt.clf()
-    ```
+```
 
 ### Deciding criterion
 Random Forest may construct different decision tree depending on which criterion it uses. The default setting is gini impurity, and also entropy is also available.
