@@ -33,8 +33,9 @@ argmax값만을 선택하는 greedy rollout을 통해 도출하는 방법을 제
 
 ### 2. Motivation
 POMO는 별도의 critic 모델의 필요성도 없앴고, rollout을 추가적으로 해야하는 번거로움도 없앴다는 점에서 시사하는 바가 크다고 생각된다.
-다만, 결국에는 하나의 모델에서 나온 결과값들을 baseline으로 계속해서 사용하기 때문에
-unstable predictions에 의한 문제가 생길 수 있겠다는 생각이 들었다. 이는 Dual Student에서 제기했던 문제점과 유사하다고 판단하여, 
+다만, 결국에는 하나의 모델에서 나온 결과값들을 baseline으로 계속해서 사용하기 때문에 
+**labeled data가 없는 상황에서 unstable predictions에 의한 문제**
+가 생길 수 있겠다는 생각이 들었다. 이는 Dual Student에서 제기했던 문제점과 유사하다고 판단하여, 
 이 문제 상황에 해당 기법을 한 번 적용해보고자 한다. 이 문제는 강화학습의 exploration을 통해 해결될 수 있다고
 생각할 수 있으나, 아래 그림과 같이 200 epoch 정도에서는 policy 개선 속도가 현저하게 줄었음에도 결국 학습은 2000 epoch까지 
 시켜야하는 상황을 고려해봤을 때, 현재와 같은 exploration 기법에만 의존하기에는 너무 비효율적이라는 판단을 내렸다.
@@ -92,11 +93,32 @@ trainer_params = {
     }
 }
 ```
-각 실험은 한 epoch 당 10만개의 TSP 문제를 풀게 되고, 시간 관계상 25 epoch만 진행했다.
+각 실험은 한 epoch 당 random generate된 10만개의 TSP 문제를 풀게 되고, 시간 관계상 25 epoch만 진행했다 (i7‑7‑11850HE, RTX-3090Ti 기준 한 epoch 당 4시간)
+
 ### 4. Results
 
 ![image](https://user-images.githubusercontent.com/93261025/209683278-7849ff79-4dc6-48fb-801c-678fda5711c0.png)
 
-실험 결과 한 개의 decoder만을 가지고 실험했을 때보다 두 개의 decoder를 가지고 Average_Node 기법을 사용했을 때 smoothing 값 기준으로
+짧은 경로를 가지는 값을 baseline 값으로 설정하는 max_student가 있다. 그 다음으로는 두 student의 평균값을 baseline으로 설정하는 두 방법이 
+있는데, 하나는 노드별로 평균을 따로 계산하는 average_student와 모든 노드들의 평균값을 한 번에 계산하는 average_node가 있다. 
+|  Baseline  |   Path Length |
+|:--:|:--------:|
+|  single |        8.043 | 
+|  max_student |        8.208 | 
+|  average_student |        8.039 | 
+|  average_node |        8.025 |
+
+실험 결과 한 개의 decoder만을 가지고 실험했을 때보다 두 개의 decoder를 가지고 average_node 기법을 사용했을 때 smoothing 값 기준으로
 각각 8.043, 8.025로 0.22%의 성능 향상이 이뤄진 것을 볼 수 있었다. 이는 현재 2000 epoch까지 학습된 POMO 모델이 최적값과 1.07% 차이를 
-보이는 점을 감안하면 결코 작은 차이가 아님을 알 수 있다. 그 밖에도 average_student 기법 또한 8.039
+보이는 점을 감안하면 결코 작은 차이가 아님을 알 수 있다. 그 밖에도 average_student 기법 또한 8.039로 single 모델 보다는 좋은 성능을 보임을 확인할 수 있으나, max_student의 경우 한참 떨어지는 결과를 보였다. 이 이유는 아래 그래프로 설명이 가능한데,
+
+![image](https://user-images.githubusercontent.com/93261025/209684582-9ecce46f-018b-488b-9dc6-e11626840f4a.png)
+
+해당 그래프는 max_student와 average_node의 loss 값 추이를 나타낸다. 앞서 Baseline을 사용하는 가장 큰 이유 중 하나가 큰 variance를 줄이기 위함이라고 언급했었다. 위 그래프처럼 계속해서 큰 variance를 가져가는 경우 학습이 더디게 진행될 수 밖에 없고, 이는 낮은 return 값으로 이어진 것으로 보인다. 
+
+### 5. Discussion
+위 결과를 통해 같은 양의 데이터로 학습을 진행했을 때 Dual Student 기법에서 착안한 baseline을 사용시 성능이 향상된다는 것을 알 수 있었다. 하지만 해당 방법의 경우 연산을 두 배로 진행함에 따라 소요 시간이 증가한다는 문제점이 있다. 아래 그림은 시간을 x축으로 한 그래프이다. 
+
+![image](https://user-images.githubusercontent.com/93261025/209685455-ef431ac2-92de-4290-a797-b03f4cb770bb.png)
+
+Batch_step을 x축으로 했을 때는 안보이던 해당 방법론의 문제가 두드러진다. Single model의 경우 2시간 안쪽으로 25 epoch을 끝내게 되면서 다른 모델 대비 시간을 기준으로 했을 때 훨씬 더 빠르게 해를 찾는 것을 확인할 수 있다. 해당 결과를 봤을 때는 두 배 더 많은 데이터로 학습을 진행할 수 있는 single model이 우위에 있다고 생각이 들 수 있다. 하지만 학습 속도가 빠르게 진행되는 초반과 달리 후반으로 갈수록 gradient는 0에 수렴하게 되면서 학습 속도가 더디게 된다. 더 오랜 시간동안 학습을 진행하였을 경우에는, 같은 시간대에서도 이번 튜토리얼에서 제시하는 방법론의 성능이 더 우월할 수 있다는 가능성을 제시하고 싶다. 이는 후속 연구에서 밝혀보고자 한다.
