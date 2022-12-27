@@ -122,3 +122,10 @@ trainer_params = {
 ![image](https://user-images.githubusercontent.com/93261025/209685455-ef431ac2-92de-4290-a797-b03f4cb770bb.png)
 
 Batch_step을 x축으로 했을 때는 안보이던 해당 방법론의 문제가 두드러진다. Single model의 경우 2시간 안쪽으로 25 epoch을 끝내게 되면서 다른 모델 대비 시간을 기준으로 했을 때 훨씬 더 빠르게 해를 찾는 것을 확인할 수 있다. 해당 결과를 봤을 때는 두 배 더 많은 데이터로 학습을 진행할 수 있는 single model이 우위에 있다고 생각이 들 수 있다. 하지만 학습 속도가 빠르게 진행되는 초반과 달리 후반으로 갈수록 gradient는 0에 수렴하게 되면서 학습 속도가 더디게 된다. 더 오랜 시간동안 학습을 진행하였을 경우에는, 같은 시간대에서도 이번 튜토리얼에서 제시하는 방법론의 성능이 더 우월할 수 있다는 가능성을 제시하고 싶다. 이는 후속 연구에서 밝혀보고자 한다.
+
+#### References
+- Bello, Irwan, et al. "Neural combinatorial optimization with reinforcement learning." arXiv preprint arXiv:1611.09940 (2016).
+- Nazari, Mohammadreza, et al. "Reinforcement learning for solving the vehicle routing problem." Advances in neural information processing systems 31 (2018).
+- Kool, Wouter, Herke Van Hoof, and Max Welling. "Attention, learn to solve routing problems!." arXiv preprint arXiv:1803.08475 (2018).
+- Kwon, Yeong-Dae, et al. "Pomo: Policy optimization with multiple optima for reinforcement learning." Advances in Neural Information Processing Systems 33 (2020): 21188-21198.
+
